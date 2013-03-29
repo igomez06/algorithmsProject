@@ -1,0 +1,16 @@
+public class MainProgram {
+
+	public static final int H = 6;
+	public static final int N = 3;
+	public Cell[][] mag = new Cell[H][N];
+	
+	public int maxAverageGrade(int H, int N) {
+		int max = 0;
+		
+		return 0;
+	}
+	public static void main(String[] args) {
+		
+	}
+
+}

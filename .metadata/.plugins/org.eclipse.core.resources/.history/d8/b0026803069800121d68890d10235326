@@ -1,0 +1,8 @@
+
+public class Cell {
+
+	public int maxGrade;
+	public int parentH;
+	public int parentN;
+
+}

@@ -1,0 +1,62 @@
+import java.util.ArrayList;
+
+public class MainProgram {
+
+	public static final int H = 4;
+	public static final int N = 2;
+	public Cell[][] mag = new Cell[H][N];
+	public ArrayList<Project> projects = new ArrayList<Project>();
+	
+	public int maxAverageGrade(int H, int N) {
+		int max = 0;
+		if (mag[H][N] != null) {
+			return mag[H][N].maxGrade;
+		}
+		if (N==1) {
+			mag[H][N].maxGrade = f(H, projects.get(0));
+		}
+		for (int i = 0; i <=H; ++i) {
+			Cell tempCell = new Cell();
+			tempCell.maxGrade = maxAverageGrade(H-i, N-1) + f(i,projects.get(N));
+			tempCell.maxGrade = tempCell.maxGrade / N;
+			if (tempCell.maxGrade > max) {
+				max = tempCell.maxGrade;
+				tempCell.parentH = H-i;
+				tempCell.parentN = N-1;
+				mag[H][N] = tempCell;
+			}
+		}
+		return mag[H][N].maxGrade;
+	}
+	
+	public void pathMaxGrad(int H, int N) {
+		if (N==1) {
+			int hoursTaken = H - mag[H][N].parentH;
+			System.out.println("Project " + N + " takes " + hoursTaken + " hours");
+			return;
+		}
+		int hoursTaken = H - mag[H][N].parentH;
+		System.out.println("Project " + N + " takes " + hoursTaken + " hours");
+	}
+	
+	public double f(int h, Project n) {
+//		for (int i = 0; i < H; ++i) {
+//			return 
+//		}
+		int grade;
+		grade = (h/N)*n.weight;
+		return grade;
+	}
+	
+	public static void main(String[] args) {
+		MainProgram mp = new MainProgram();
+		Project algorithms = new Project(.3);
+		Project compOrg = new Project(4);
+		
+		projects.add(algorithms);
+		projects.add(compOrg);
+		mp.maxAverageGrade(4, projects.size());
+		System.out.println(mp.mag[0][0]);
+	}
+
+}

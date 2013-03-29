@@ -1,0 +1,89 @@
+import java.util.ArrayList;
+
+public class MainProgram {
+
+	public static final int H = 20;
+	public static final int N = 8;
+	public Cell[][] mag = new Cell[H+1][N+1];
+	public ArrayList<Project> projects = new ArrayList<Project>();
+	
+	public double maxAverageGrade(int H, int N) {
+		double max = 0;
+		if (mag[H][N] != null) {
+			return mag[H][N].maxGrade;
+		}
+		if (N==1) {
+			Cell cell = new Cell();
+			cell.maxGrade = f(H, projects.get(0));
+			mag[H][N] = cell;
+			return cell.maxGrade;
+		}
+		if (H==0) {
+			Cell cell = new Cell();
+			cell.maxGrade = 0;
+			mag[H][N] = cell;
+			return mag[H][N].maxGrade;
+		}
+		for (int i = 0; i <=H; ++i) {
+			Cell tempCell = new Cell();
+			tempCell.maxGrade = maxAverageGrade(H-i, N-1) + f(i,projects.get(N-1));
+			if (tempCell.maxGrade > max) {
+				max = tempCell.maxGrade;
+				tempCell.parentH = H-i;
+				tempCell.parentN = N-1;
+				mag[H][N] = tempCell;
+			}
+		}
+		return mag[H][N].maxGrade;
+	}
+	
+	public void pathMaxGrade(int H, int N) {
+		if (N==1) {
+			int hoursTaken = H;
+			System.out.println("Project " + N + " takes " + hoursTaken + " hours");
+			return;
+		}
+		if(H==0) {
+			int hoursTaken = H;
+			System.out.println("Project " + N + " takes " + hoursTaken + " hours");
+			pathMaxGrade(H, N-1);
+			return;
+		}
+		int hoursTaken = H - mag[H][N].parentH;
+		System.out.println("Project " + N + " takes " + hoursTaken + " hours");
+		pathMaxGrade(mag[H][N].parentH, mag[H][N].parentN);
+	}
+	
+	public double f(int h, Project n) {
+		double grade;
+		//grade = (h/((double)H))*n.weight;
+		grade = ((double)h)*n.weight;
+		return grade;
+	}
+	
+	public static void main(String[] args) {
+		MainProgram mp = new MainProgram();
+		Project algorithms = new Project(.2);
+		Project compOrg = new Project(.3);
+		Project french = new Project(.25);
+		Project soccer = new Project(.15);
+		Project p5 = new Project(.2);
+		Project p6 = new Project(.3);
+		Project p7 = new Project(.5);
+		Project p8 = new Project(.15);
+		
+		mp.projects.add(algorithms);
+		mp.projects.add(compOrg);
+		mp.projects.add(french);
+		mp.projects.add(soccer);
+		mp.projects.add(p5);
+		mp.projects.add(p6);
+		mp.projects.add(p7);
+		mp.projects.add(p8);
+		double grade;
+		grade = mp.maxAverageGrade(H, N)/N;
+		System.out.println("Max grade is " + grade);
+		mp.pathMaxGrade(H, N);
+	}
+
+}

@@ -1,0 +1,8 @@
+
+public class Project {
+	public double weight;
+	
+	public Project(int weight) {
+		this.weight = weight;
+	}
+}
