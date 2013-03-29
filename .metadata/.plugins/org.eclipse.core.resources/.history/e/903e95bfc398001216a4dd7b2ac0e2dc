@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class MainProgram {
 
-	public static final int H = 6;
-	public static final int N = 3;
+	public static final int H = 1000;
+	public static final int N = 100;
 	public Cell[][] mag = new Cell[H+1][N+1];
 	
 	public double maxAverageGrade(int H, int N) {

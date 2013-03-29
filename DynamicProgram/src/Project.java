@@ -1,8 +1,0 @@
-
-public class Project {
-	public double weight;
-	
-	public Project(double weight) {
-		this.weight = weight;
-	}
-}

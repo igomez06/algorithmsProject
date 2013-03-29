@@ -5,6 +5,7 @@ public class MainProgram {
 	public static final int H = 6;
 	public static final int N = 3;
 	public Cell[][] mag = new Cell[H+1][N+1];
+	public ArrayList<Project> projects = new ArrayList<Project>();
 	
 	public double maxAverageGrade(int H, int N) {
 		double max = 0;
@@ -55,6 +56,7 @@ public class MainProgram {
 	
 	public double f(int h, int n) {
 		double grade = 0;
+		//grade = (h/((double)H))*n.weight;
 		if (n == 1) {
 			switch (h) {
 			case 1: grade = 25;
@@ -111,6 +113,23 @@ public class MainProgram {
 	
 	public static void main(String[] args) {
 		MainProgram mp = new MainProgram();
+//		Project algorithms = new Project(.05);
+//		Project compOrg = new Project(.3);
+//		Project french = new Project(.25);
+//		Project soccer = new Project(.15);
+//		Project p5 = new Project(.2);
+//		Project p6 = new Project(.3);
+//		Project p7 = new Project(.5);
+//		Project p8 = new Project(.15);
+		
+//		mp.projects.add(algorithms);
+//		mp.projects.add(compOrg);
+//		mp.projects.add(french);
+//		mp.projects.add(soccer);
+//		mp.projects.add(p5);
+//		mp.projects.add(p6);
+//		mp.projects.add(p7);
+//		mp.projects.add(p8);
 		double grade;
 		grade = mp.maxAverageGrade(H, N)/N;
 		System.out.println("Max grade is " + grade);
